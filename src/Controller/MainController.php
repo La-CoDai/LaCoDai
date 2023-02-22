@@ -34,8 +34,6 @@ class MainController extends AbstractController
         ]);
     }
 
-
-
         /**
      * @Route("/contact", name="contactForm")
      */
