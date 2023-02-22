@@ -1,0 +1,118 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Homepage - La'CoDai{% endblock %}
+
+{% block body %}
+{# Start Banner #}
+<div class="banner mt-2 mx-5 px-3 rounded-bottom">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active mb-5" data-bs-interval="5000">
+            <img src="{{asset('images/banner_1.jpg')}}" class="d-block m-auto" alt="1" style="max-width: 1270px; width: 100%;">
+            </div>
+            <div class="carousel-item mb-5" data-bs-interval="5000">
+            <img src="{{asset('images/banner_2.jpg')}}" class="d-block m-auto" alt="2" style="max-width: 1270px; width: 100%;">
+            </div>
+        </div>
+        <button class="carousel-control-prev w-auto" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next w-auto" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+{# End Banner #}
+
+{# Start Features #}
+    <div class="features container-fluid rounded" style="background-color: #fafafa; max-width: 1270px; width: 100%;">
+        <div class="container p-3">
+            <div class="section-header text-center mx-auto">
+                <h1 class="display-5 mb-3 fw-bold text-white bg-dark">OUR SERVICES</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card_features text-center h-100 p-4 p-xl-5 rounded">
+                        <img class="img-fluid mb-4 bg-0" src="{{asset('images/icon_1.png')}}" alt="">
+                        <h4 class="mb-3 fw-bold">Natural Process</h4>
+                        <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card_features text-center h-100 p-4 p-xl-5">
+                        <img class="img-fluid mb-4" src="{{asset('images/icon_2.png')}}" alt="">
+                        <h4 class="mb-3 fw-bold">Organic Products</h4>
+                        <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card_features text-center h-100 p-4 p-xl-5">
+                        <img class="img-fluid mb-4" src="{{asset('images/icon_3.png')}}" alt="">
+                        <h4 class="mb-3 fw-bold">Biologically Safe</h4>
+                        <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <a class="btn btn-dark rounded-pill py-3 px-5" href="{{path('aboutusForm')}}">View More Information</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{# End Features #}
+
+{# Start New Products #}
+<div class="example-wrapper" style="margin: 1em auto; max-width: 1300px; width: 100%;">
+    <div class="container-xxl">
+        <div class="container px-5 py-5 rounded" style="background-color: #fafafa;">
+            <div class="row g-0 gx-5 fst-italic">
+                <div class="section-header mb-5 text-center">
+                    <h1 class="display-5 fw-bold text-white bg-dark">NEW PRODUCTS</h1>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        {% for pro in products %}
+                            <div class="card-item col-xl-3 col-lg-4 col-md-6">
+                                <div class="product-item shadow">
+                                    <div class="position-relative">
+                                        {% set img = pro.pimg %}
+                                        <a href="{{path('detail_product',{'id':pro.id})}}"><img class="img-fluid w-100 p-3" src="{{asset('images/'~img)}}" alt="Image"></a>
+                                    </div>
+                                    <div class="text-center p-2">
+                                        <a class="text-truncate d-block h6 mb-2" href="{{path('detail_product',{'id':pro.id})}}">{{pro.pname}}</a>
+                                        <span class="text-danger me-1 fw-bold">{{pro.pprice}}đ</span>
+                                    </div>
+                                    <div class="d-flex border-top">
+                                        <small class="w-50 text-center border-end py-2">
+                                            <a class="text-body" href="{{path('detail_product',{'id':pro.id})}}"><i class="fa fa-eye text-primary me-2"></i>View detail</a>
+                                        </small>
+                                        {% if app.user %}
+                                            <small class="w-50 text-center py-2">
+                                                <a class="text-body" href="{{path('show_cart',{'id':pro.id})}}"><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                            </small>
+                                            {% else %}
+                                            <small class="w-50 text-center py-2">
+                                                <a class="text-body" href="{{path('loginForm')}}"><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                            </small>
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{# End New Products #}
+{% endblock %}
+

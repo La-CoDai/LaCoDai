@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{asset('images/icon.png')}}">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    {# Link Font Awesome #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md" style="background-color: #0f172a;">
+  <div class="container-fluid">
+          <a class="text-decoration-none text-white fst-italic">Don't just smell nice, smell unforgettable</a>
+          <ul class="navbar-nav">
+            {% if app.user %}
+              <li class="nav-item my-auto text-primary mx-1">
+                Hello, {{ app.user.name }}
+              </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+              <li class="nav-item admin">
+                <a class="nav-link" href="{{path('adminHomeForm')}}"><i class="fa-solid fa-gear"></i> Admin</a>
+              </li>
+            {% endif %}
+            {% if app.user %}
+              <li class="nav-item cart">
+                <a class="nav-link" href="{{path('show_cart')}}"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+              </li>
+              {% else %}
+              <li class="nav-item cart">
+                <a class="nav-link" href="{{path('loginForm')}}"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+              </li>
+            {% endif %}
+            {% if app.user %}
+                <li class="nav-item">
+                    <a href="{{ path('app_logout') }}" class="nav-link">Logout <i class="fa-solid fa-right-from-bracket"></i></a>
+                </li>
+                {% else %}
+                <li class="nav-item login">
+                  <a class="nav-link" href="{{path('loginForm')}}"><i class="fa-solid fa-user"></i> Login</a>
+                </li>
+            {% endif %}
+            
+          </ul>
+  </div>
+</nav>
+<div class="d-flex align-items-end justify-content-center">
+  <img src="{{asset('images/logo.png')}}" alt="Logo" weight="130px" height="130px"></img>
+</div>
+<nav class="navbar navbar-expand-md p-0">
+  <div class="container-fluid shadow-sm">
+    <div class="collapse navbar-collapse mb-2" id="navbarText">
+      <ul class="navbar-nav mb-2 mb-lg-0 fs-4 mx-auto">
+          <li class="nav-item me-5">
+              <a class="nav-link text-dark" href="{{path('homepageForm')}}">Home</a>
+          </li>
+          <li class="nav-item dropdown me-5">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="drop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Brand
+            </a>
+            <ul class="dropdown-menu border-0 shadow-lg">
+                {% for br in brand %}
+                  <li><a class="dropdown-item text-dark h5" href="{{path('product_brand',{'id':br.id})}}">{{br.bname}}</a></li>
+                {% endfor %}
+            </ul>
+          </li>
+          <li class="nav-item dropdown me-5">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="drop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sale
+            </a>
+            <ul class="dropdown-menu border-0 shadow-lg" aria-labelledby="drop">
+                <li><a class="dropdown-item text-dark h5 m-0" href="{{path('product_saleMale')}}">Male</a></li>
+                <li><a class="dropdown-item text-dark h5 m-0" href="{{path('product_saleFemale')}}">Female</a></li>
+            </ul>
+          </li>
+          <li class="nav-item me-5">
+              <a class="nav-link text-dark" href="{{path('aboutusForm')}}">About Us</a>
+          </li>
+          <li class="nav-item me-5">
+              <a class="nav-link text-dark" href="{{path('contactForm')}}">Contact</a>
+          </li>        
+          <form action="{{path('product_find')}}" class="h5 my-auto d-flex" methods="get">  
+            <input type="search" class="p-2" placeholder="  Search" name="keyword">
+            <button type="submit" class="border-0 bg-white mx-2"><i class="fas fa-search"></i></button>
+          </form>
+      </ul>
+    </div>  
+  </div>
+</nav>
+{% block body %}
+
+{% endblock %}
+<div class="container-fluid" style="background-color: white;">
+  <footer class="row row-cols-5 py-5 text-dark shadow-lg">
+    <div class="col-4">
+      <img src="{{asset('images/logo.png')}}" alt="Logo" style="width: 200px; height:100px"></img>
+      <p>© 2021</p>
+    </div>
+
+    <div class="col">
+      <h3>Address</h3>
+      <ul class="nav flex-column lh-lg">
+        <li class="nav-item mb-2 d-flex"><i class="fa-solid fa-location-dot my-auto me-2"></i><a href="#" class="nav-link p-0 text-muted">123 Street, New York, USA</a></li>
+        <li class="nav-item mb-2 d-flex"><i class="fa-solid fa-phone my-auto me-2"></i><a href="#" class="nav-link p-0 text-muted">0918 27 36 45</a></li>
+        <li class="nav-item mb-2 d-flex"><i class="fa-solid fa-envelope my-auto me-2"></i><a href="#" class="nav-link p-0 text-muted">lacodai@gmail.com</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>Section</h3>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>Section</h3>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>  
+</body>
+{% block javascripts %}{% endblock %}
+
+</html>
