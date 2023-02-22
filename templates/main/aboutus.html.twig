@@ -1,0 +1,51 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}About Us - La'Codai{% endblock %}
+
+{% block body %}
+{# Start Features #}
+<div class="features container-fluid rounded" style="max-width: 1270px; width: 100%;">
+    <div class="container p-3">
+        <div class="section-header text-center mx-auto">
+            <h1 class="display-5 mb-3 fw-bold text-white bg-dark">DEVELOPER</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card_features text-center h-100 p-4 p-xl-5 rounded">
+                    <img class="img-fluid mb-4 bg-0 h-75 w-75" style="border-radius: 20px;" src="{{asset('images/member_1.jpg')}}" alt="">
+                    <h4 class="mb-3 fw-bold">Lieu Vinh Khoi</h4>
+                    <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card_features text-center h-100 p-4 p-xl-5">
+                    <img class="img-fluid mb-4 bg-0 h-75 w-75" style="border-radius: 20px;" src="{{asset('images/member_2.jpg')}}" alt="">
+                    <h4 class="mb-3 fw-bold">Huynh Van Qui</h4>
+                    <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card_features text-center h-100 p-4 p-xl-5">
+                    <img class="img-fluid mb-4 bg-0 h-75 w-75" style="border-radius: 20px;" src="{{asset('images/member_3.jpg')}}" alt="">
+                    <h4 class="mb-3 fw-bold">Ly Thanh Hao</h4>
+                    <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container p-3">
+        <div class="section-header text-center mx-auto">
+            <h1 class="display-5 mb-3 fw-bold text-white bg-dark">OUR SERVICES</h1>
+        </div>
+        <div class="row g-4">
+        <p style="text-align: justify;">
+            ‘La'Codai’
+            set up in 2020, ‘La'Codai’ is VietNam’s biggest free aroma retailer.
+            Our point is to make standard and extravagant scents moderate and open to all. We have over 10 of the world's most popular scent brands, which are all accessible for you to peruse online at your relaxation. Remember our breathtaking determinations in-store as well!
+            We highly esteem conveying the remarkable support of our clients, which we have, as of late, been granted for magnificent client benefit.
+            Regardless of whether you shop in one of more than 200 stores, on the web, or via telephone, our well-disposed group is close by to help make finding the ideal aroma a pleasurable ordeal for all.</p>
+        </div>
+    </div>
+</div>
+{# End Features #}
+{% endblock %}

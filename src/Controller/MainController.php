@@ -20,4 +20,15 @@ class MainController extends AbstractController
             // 'brand' => $brand
         ]);
     }
+
+    /**
+     * @Route("/aboutus", name="aboutusForm")
+     */
+    public function Aboutus(): Response
+    {
+        // $brand = $bra->findAll();
+        return $this->render('main/aboutus.html.twig', [
+            // 'brand' => $brand
+        ]);
+    }
 }
