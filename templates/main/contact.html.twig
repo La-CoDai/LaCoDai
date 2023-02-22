@@ -1,0 +1,53 @@
+{% extends 'home.html.twig' %}
+{% block title %}Contact - La'Codai{% endblock %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/styles-contact.css')}}">
+</head>
+<body>
+    <h1>Contact Us</h1>    
+    <div class="form-area mb-5">
+        <div class="container">
+            <div class="row single-form g-0">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="left m-3">
+                        <h3><span>Contact Us for</span> Perfume Products Enquiries</h3>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="right">
+                       <i class="fa fa-caret-left"></i>
+                        <form>
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Message</label>
+                              <textarea type="password" class="form-control" id="exampleInputPassword1"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Google map-->
+    <div id="map-container-google-3" class="z-depth-1-half map-container-3">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d825.9403473749909!2d105.77804058518267!3d10.028687446743826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a062a8990f568d%3A0x2a22d599b2c06b23!2zxJDhuqFpIEjhu41jIEdyZWVud2ljaCAoVmnhu4d0IE5hbSkgLSBDxqEgc-G7nyBD4bqnbiBUaMah!5e0!3m2!1svi!2s!4v1676338749309!5m2!1svi!2s" 
+    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</body>
+</html>
+{% endblock %}
