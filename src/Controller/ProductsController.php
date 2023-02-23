@@ -33,4 +33,22 @@ class ProductsController extends AbstractController
             'product' => $pro
         ]);
     }
+
+        /**
+     * @Route("/product/find", name="product_find")
+     */
+    public function searchProduct(ProductsRepository $rePro, BrandsRepository $reBra, Request $req): Response
+    {
+        $kw = $req->query->get("keyword");
+        $br = $reBra->findAll();
+
+        $product = $rePro->findAll();
+
+        $product = $rePro->findProduct($kw);
+        return $this->render('product/findProduct.html.twig', [
+            'brand' => $br,
+            'product' => $product,
+            'kw' => $kw
+        ]);
+    }
 }
