@@ -38,4 +38,21 @@ class AdminBrandController extends AbstractController
             'form'=>$form->createView()
         ]);
     }
+
+    /**
+     * @Route("admin/brand/edit/{id}", name="edit_brand")
+     */
+    public function editBrand(BrandsRepository $repo, Request $req, Brands $b): Response
+    {
+        $form = $this->createForm(BrandType::class,$b);
+
+        $form->handleRequest($req);
+        if ($form->isSubmitted()&&$form->isValid()) {
+            $repo->add($b,true);
+            return $this->redirectToRoute('show_brand', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('admin_brand/edit.html.twig', [
+            'form'=>$form->createView()
+        ]);
+    }
 }
