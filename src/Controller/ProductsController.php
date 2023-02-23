@@ -19,7 +19,6 @@ class ProductsController extends AbstractController
             'controller_name' => 'ProductsController',
         ]);
     }
-
         /**
      * @Route("/product/brand/{id}", name="product_brand")
      */
