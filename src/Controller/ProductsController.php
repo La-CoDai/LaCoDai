@@ -59,4 +59,30 @@ class ProductsController extends AbstractController
             'kw' => $kw
         ]);
     }
+
+        /**
+     * @Route("/product/saleMale", name="product_saleMale")
+     */
+    public function showProductSaleMale(ProductsRepository $rePro, BrandsRepository $reBra): Response
+    {
+        $br = $reBra->findAll();
+        $product = $rePro->findProductSale(0);
+        return $this->render('product/findSaleMale.html.twig', [
+            'brand' => $br,
+            'product' => $product
+        ]);
+    }
+
+    /**
+     * @Route("/product/saleFemale", name="product_saleFemale")
+     */
+    public function showProductSaleFemale(ProductsRepository $rePro, BrandsRepository $reBra): Response
+    {
+        $br = $reBra->findAll();
+        $product = $rePro->findProductSale(1);
+        return $this->render('product/findSaleFemale.html.twig', [
+            'brand' => $br,
+            'product' => $product
+        ]);
+    }
 }
