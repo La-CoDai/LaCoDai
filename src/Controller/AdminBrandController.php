@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Brands;
 use App\Repository\BrandsRepository;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,5 +55,27 @@ class AdminBrandController extends AbstractController
         return $this->render('admin_brand/edit.html.twig', [
             'form'=>$form->createView()
         ]);
+    }
+
+    /**
+     * @Route("admin/brand/delete/{id}",name="delete_brand", requirements={"id"="\d+"})
+     */
+    
+     public function deleteAction(BrandsRepository $repo, Brands $b): Response
+     {
+        try {
+            $repo->remove($b,true);
+        } catch (ForeignKeyConstraintViolationException $th) {
+            return $this->redirectToRoute('errForm', [], Response::HTTP_SEE_OTHER);
+        }
+         return $this->redirectToRoute('show_brand', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/err", name="errForm")
+     */
+    public function FunctionName(): Response
+    {
+        return $this->render('error.html.twig', []);
     }
 }

@@ -1,0 +1,25 @@
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ERROR!!!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/styles-error.css')}}">
+</head>
+<body>
+    <h1></h1>    
+    <div class="form-area">
+        <div class="col-sm-12 col-lg-12">
+            <div class="left m-3 text-center bg-danger">
+                <i class="fa-solid fa-circle-exclamation mb-3"></i>
+                <h3 class="my-5">Buddy, listen up, you've made an error, you know?<br> Please perform the operation again.</h3>
+                <a href="{{path('show_brand')}}" class="btn btn-warning">Cancle</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
