@@ -1,0 +1,32 @@
+{% extends 'home-admin.html.twig' %}
+{% block body %}
+<div class="container p-0">
+    <div class="title-admin"><h1 class="m-0">BRAND LIST</h1></div>
+    <div class="card rounded-0">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped m-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {% for bra in brand %}
+                        <tr>
+                            <td>{{ bra.id}}</td>
+                            <td>{{ bra.bname}}</td>
+                            <td>
+                                <a href="{{path('edit_brand',{'id':bra.id})}}" class="text-decoration-none"><i class="fa-sharp fa-solid fa-pen-to-square mx-2"></i></a>&nbsp;
+                                <a href="{{path('delete_brand',{'id':bra.id})}}" class="text-decoration-none"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="{{path('add_brand')}}"><input type="button" value="ADD NEW BRAND" class="btn btn-primary m-2"></a> 
+</div>       
+{% endblock %}
