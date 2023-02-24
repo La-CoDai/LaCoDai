@@ -1,0 +1,40 @@
+{% extends 'home-admin.html.twig' %}
+{% block body %}
+<div class="container p-0">
+    <div class="title-admin"><h1 class="m-0">BRAND LIST</h1></div>
+    <div class="card rounded-0">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped m-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>EMAIL</th>
+                        <th>ROLES</th>
+                        <th>PASSWORD</th>
+                        <th>NAME</th>
+                        <th>ADDRESS</th>
+                        <th>PHONE</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {% for acc in account %}
+                        <tr>
+                            <td>{{ acc.id}}</td>
+                            <td>{{ acc.email}}</td>
+                            <td>{{ acc.roles|json_encode}}</td>
+                            <td class="text-truncate" style="max-width: 14vw">{{ acc.password}}</td>
+                            <td>{{ acc.name}}</td>
+                            <td>{{ acc.address}}</td>
+                            <td>{{ acc.phone}}</td>
+                            <td class="text-center">
+                                <a href="{{path('show_account',{'id':acc.id})}}" class="text-decoration-none"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>       
+{% endblock %}
