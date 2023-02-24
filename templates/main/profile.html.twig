@@ -1,0 +1,52 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Profile - La'Codai{% endblock %}
+
+{% block body %}
+<section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-center align-items-center mb-4">
+          <h2 class="mb-0 text-black fw-bold">My Profile</h2>
+        </div>
+
+        {% for u in user %}
+        <form action="{{path('profileUp',{'id':app.user.id})}}">
+            <div class="card mb-4 p-3">
+              <div class="card-body p-2 d-flex flex-row">
+                <p class="my-auto fw-bold" style="margin-right:30px">Email: </p>
+                <div class="form-outline flex-fill">
+                  <input type="text" value="{{u.email}}" class="form-control form-control-lg text-center" disabled>
+                </div>
+              </div>
+              <div class="card-body p-2 d-flex flex-row">
+                <p class="my-auto fw-bold" style="margin-right:25px">Name:</p>
+                <div class="form-outline flex-fill">
+                  <input type="text" name="name" value="{{u.name}}" class="form-control form-control-lg text-center">
+                </div>
+              </div>
+              <div class="card-body p-2 d-flex flex-row">
+                <p class="my-auto fw-bold" style="margin-right: 10px">Address:</p>
+                <div class="form-outline flex-fill">
+                  <input type="text" name="address" value="{{u.address}}" class="form-control form-control-lg text-center">
+                </div>
+              </div>
+              <div class="card-body p-2 d-flex flex-row">
+                <p class="my-auto fw-bold" style="margin-right:25px">Phone:</p>
+                <div class="form-outline flex-fill">
+                  <input type="text" name="phone" value="{{u.phone}}" class="form-control form-control-lg text-center">
+                </div>
+              </div>
+              <div class="card-body text-center">
+                <button type="submit" class="btn btn-success float-end">UPDATE PROFILE</button>
+              </div>
+            </div>
+        </form>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

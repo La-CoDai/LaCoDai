@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\BrandsRepository;
 use App\Repository\ProductsRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,13 +35,31 @@ class MainController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/contact", name="contactForm")
      */
     public function Contact(BrandsRepository $bra): Response
     {
         $brand = $bra->findAll();
         return $this->render('main/contact.html.twig', [
+            'brand' => $brand
+        ]);
+    }
+
+    /**
+     * @Route("/profile", name="profileForm")
+     */
+    public function Profile(BrandsRepository $reBra, UserRepository $reUser): Response
+    {
+        $user = $this->getUser();
+        $data[]=[
+            'id'=>$user->getId()
+        ];
+        $uid = $data[0]['id'];
+        $brand = $reBra->findAll();
+        $user = $reUser->listprofile($uid);
+        return $this->render('main/profile.html.twig', [
+            'user' => $user,
             'brand' => $brand
         ]);
     }
