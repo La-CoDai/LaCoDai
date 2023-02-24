@@ -63,4 +63,19 @@ class MainController extends AbstractController
             'brand' => $brand
         ]);
     }
+
+    /**
+     * @Route("/profile/update/{id}", name="profileUp")
+     */
+    public function ProfileUp(BrandsRepository $reBra, UserRepository $reUser, Request $req, User $u): Response
+    {
+        $name = $req->query->get('name');
+        $address = $req->query->get('address');
+        $phone = $req->query->get('phone');
+        $u->setName($name);
+        $u->setAddress($address);
+        $u->setPhone($phone);
+        $reUser->add($u,true);
+        return $this->redirectToRoute('profileForm', [], Response::HTTP_SEE_OTHER);
+    }
 }
