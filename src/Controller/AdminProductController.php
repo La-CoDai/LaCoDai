@@ -48,6 +48,27 @@ class AdminProductController extends AbstractController
         ]);
     }
 
+        /**
+     * @Route("admin/product/edit/{id}", name="edit_product",requirements={"id"="\d+"})
+     */
+    public function editAction(Request $req, Products $p, SluggerInterface $slugger, ProductsRepository $repo): Response
+    {
+        $form = $this->createForm(ProductType::class, $p);   
+        $form->handleRequest($req);
+        if($form->isSubmitted() && $form->isValid()){
+            $imgFile = $form->get('file')->getData();
+            if ($imgFile) {
+                $newFilename = $this->uploadImage($imgFile,$slugger);
+                $p->setPimg($newFilename);
+            }
+            $repo->add($p,true);
+            return $this->redirectToRoute('show_product', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render("admin_product/edit.html.twig",[
+            'form' => $form->createView()
+        ]);
+    }
+
     
     public function uploadImage($imgFile, SluggerInterface $slugger): ?string{
         $originalFilename = pathinfo($imgFile->getClientOrigicnalName(), PATHINFO_FILENAME);
