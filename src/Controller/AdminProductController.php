@@ -50,7 +50,7 @@ class AdminProductController extends AbstractController
 
     
     public function uploadImage($imgFile, SluggerInterface $slugger): ?string{
-        $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $originalFilename = pathinfo($imgFile->getClientOrigicnalName(), PATHINFO_FILENAME);
         $safeFilename = $slugger->slug($originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
         try {
