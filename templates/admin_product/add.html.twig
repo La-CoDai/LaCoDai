@@ -1,0 +1,39 @@
+{% extends 'home-admin.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="row title-admin"><h1 class="m-0">ADD PRODUCT</h1></div>
+    <div class="row content-admin">
+        {{ form_start(form) }}
+            <div class="my-3">
+                <label for="" class="mb-1">Brand:</label>
+                {{ form_widget(form.brand) }}
+            </div>
+            <div class="my-3">
+                <label for="" class="mb-1">Product Name:</label>
+                {{ form_widget(form.pname) }}
+            </div>
+            <div class="my-3">
+                <label for="" class="mb-1">Price:</label>
+                {{ form_widget(form.pprice) }}
+            </div>
+            <div class="my-3">
+                <label for="" class="mb-1">Image:</label>
+                {{ form_widget(form.file) }}
+            </div>
+            <div class="my-3">
+                <label for="" class="mb-1">Gender:</label>
+                {{ form_widget(form.pgender) }}
+            </div>
+            <div class="my-3">
+                <label for="" class="mb-1">Description:</label>
+                {{ form_widget(form.pdes) }}
+            </div>
+            <div>
+                {{ form_widget(form.add)}}
+                <input type="reset" value="RESET" class="btn btn-primary">
+                <a href="{{path('show_product')}}"><input type="button" value="PRODUCT LIST" class="btn btn-primary"></a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
