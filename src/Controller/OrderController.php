@@ -29,4 +29,20 @@ class OrderController extends AbstractController
             'brand' => $brand
         ]);
     }
+
+    /**
+     * @Route("/myorder/myorderdetail/{oid}", name="my_orderdetail")
+     */
+    public function myorderdetail(BrandsRepository $reBra, OrderdetailRepository $reOrdetail, Orderdetail $od): Response
+    {
+        $oid = $od->getOid();
+        $orderdetail = $reOrdetail->showOrderByUserId($oid);
+        $id = $orderdetail[0]['id'];
+        $brand = $reBra->findAll();
+        return $this->render('order/orderdetail.html.twig', [
+            'id' => $id,
+            'orderdetail' => $orderdetail,
+            'brand' => $brand
+        ]);
+    }
 }

@@ -1,0 +1,74 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Order - La'Codai{% endblock %}
+
+{% block body %}
+<section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+        <div class="card mb-4 rounded">
+          <h5 class="fw-normal mb-0 text-white bg-dark p-2 rounded-top">Response</h5>
+          <div class="card-body p-4 px-4 text-center">
+            <p class="my-auto h4 text-success">Thank you for shopping at the store</p>
+          </div>
+        </div>
+
+        {% for ord in order %}
+        <div class="card mb-4 mx-auto">
+          <h5 class="fw-normal mb-0 text-white bg-dark p-2 rounded-top">Order Information</h5>
+          <div class="card-body p-4 d-flex flex-row mx-auto">
+            <div class="form-check">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Order ID: {{ord.id}}
+              </label>
+            </div>
+            <div class="form-check mx-5">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Order Date: {{ ord.date|date("d/m/Y") }}
+              </label>
+            </div>
+            <div class="form-check mx-5">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Total: {{ord.total}}
+              </label>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="card rounded-3 mb-4">
+          <h5 class="fw-normal mb-0 text-white bg-dark p-2 rounded-top">My Cart</h5>
+          {% for pro in ordercart %}
+          <div class="card-body p-4">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                {% set img = pro.pimg %}
+                <img
+                  src="{{asset('images/'~img)}}"
+                  class="img-fluid rounded-3" alt="Cotton T-shirt">
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal mb-2">{{pro.pname}}</p>
+                <p class="lead fw-normal mb-2 text-danger">{{pro.pprice}} đ</p>
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-2 d-flex p-4">
+                <input value="{{pro.quantity}}" type="number" class="form-control form-control-sm text-center" disabled/>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 mt-1">
+                <h5 class="mb-0">{{pro.total}}đ</h5>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <a href="{{path('homepageForm')}}"><button type="button" class="btn btn-success btn-block btn-lg float-end">Continue shopping</button></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
