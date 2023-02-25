@@ -3,9 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\Order;
+use App\Entity\Orderdetail;
 use App\Entity\Products;
 use App\Repository\BrandsRepository;
 use App\Repository\CartRepository;
+use App\Repository\OrderdetailRepository;
+use App\Repository\OrderRepository;
+use App\Repository\ProductsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,5 +81,70 @@ class CartController extends AbstractController
        }
         $reCart->add($c,true);
         return $this->redirectToRoute('show_cart', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    /**
+     * @Route("/order", name="show_order")
+    */
+    public function checkout(BrandsRepository $reBra, OrderRepository $order, CartRepository $repo, OrderdetailRepository $orderdetail, ProductsRepository $rePro, EntityManagerInterface $em): Response
+    {
+        //insert  to order
+        $brand = $reBra->findAll();
+        $orderForm= new Order();
+        //Get id user
+        $user = $this->getUser();
+        $data[]=[
+            'id'=>$user->getId()
+        ];
+        $uid = $data[0]['id'];
+        //Set id user for order table
+        $orderForm->setUserorder($user); 
+        //Get product id and quantity form Cart table
+        $product = $repo->findCart($uid);
+
+        $totalAll = 0;
+        foreach ($product as $p) {
+            $totalAll += $p['total'];
+        }
+
+        $orderForm->setTotal($totalAll);
+        $orderForm->setDate(new \Datetime());
+        $order->add($orderForm, true);
+        
+        // insert to orderdetail
+        $oid = $order->orderdetail($uid)[0]['id'];
+        $orderobject =$order->find($oid);
+
+        
+        // $carts_uid = $repo->findcart($uid);
+        
+        foreach ($product as $c){
+            $orderdetailForm = new Orderdetail();
+            $product = $c['id'];
+            $productobject = $rePro->find($product);
+            $quantity = $c['quantity'];
+            $orderdetailForm->setOid($orderobject);
+            $orderdetailForm->setPid($productobject);
+            $orderdetailForm->setQuantity($quantity);
+            $orderdetail->add($orderdetailForm,true);
+                
+        }
+
+        $ordertemplate1 = $orderdetail->showOrderByUserId($oid);
+        $ordertemplate2 = $order->orderTemplate();
+
+        $cartdelete = $repo->findAll();
+        foreach ($cartdelete as $cartdel) {
+            $em->remove($cartdel);
+        }
+        $em->flush();
+
+        return $this->render('pay/order.html.twig', [
+            'ordercart' => $ordertemplate1,
+            'order' => $ordertemplate2,
+            'brand' => $brand,
+            'totalAll' => $totalAll
+        ]);
     }
 }
