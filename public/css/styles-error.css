@@ -1,0 +1,44 @@
+body{
+	font-weight: 300;
+}
+body h1
+{
+	width: fit-content;
+	margin: 0 auto;
+	padding: 50px 0;
+	font-weight: bold;
+}
+.left {
+	padding: 100px 50px;
+}
+.left h3 {
+	font-family: poppins;
+	color: #fff;
+	font-weight: 700;
+	font-size: 35px;
+}
+.left i{
+	font-size: 40px;
+}
+
+.left a{
+    transition: transform .2s;
+}
+
+.left a:hover{
+    transform: scale(1.1);
+}
+/*responsive*/
+
+@media (max-width:767px)
+{
+	.left 
+	{
+		padding: 90px 15px;
+		text-align: center;
+	}
+	.left h3 
+	{
+		font-size: 25px;
+	}
+}

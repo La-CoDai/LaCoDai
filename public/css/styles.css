@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.product-item{
+    color: aliceblue;
+}
+.product-item img{
+    transition: 0.3s;
+    cursor: pointer;
+}
+.product-item img:hover{
+    scale: 1.1;
+}
+.product-item a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.features .card_features{
+    transition: transform .2s;
+}
+.features .card_features:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.btn{
+    transition: transform .2s;
+}
+.btn:hover{
+    transform: scale(1.1);
+}
+.navbar .nav-item > a{
+    transition: transform .2s;
+    color: white;
+}
+.navbar .nav-item > a:hover{
+    transform: scale(1.1);
+    color: #ef4444;
+}
+
+/* Google Map */
+.map-container-3{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-container-3 iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+
+/* Detail */
+
+.relative .product{
+    transition: 0.2s;
+}
+
+.relative .product:hover{
+    transform: scale(1.1);
+    font-weight: bold;
+}
+
+
+
+
+  
+
+

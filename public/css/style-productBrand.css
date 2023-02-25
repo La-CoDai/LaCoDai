@@ -1,0 +1,22 @@
+.tab-content{
+    width: 100%;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.title span{
+    color: white;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.position-relative{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
