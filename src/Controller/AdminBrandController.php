@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Brands;
+use App\Form\BrandType;
 use App\Repository\BrandsRepository;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
