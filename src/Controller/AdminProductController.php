@@ -69,6 +69,16 @@ class AdminProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("admin/product/delete/{id}",name="delete_product", requirements={"id"="\d+"})
+     */
+    
+     public function deleteAction(ProductsRepository $repo, Products $p): Response
+     {
+        $repo->remove($p,true);
+        return $this->redirectToRoute('show_product', [], Response::HTTP_SEE_OTHER);
+    }
+
     
     public function uploadImage($imgFile, SluggerInterface $slugger): ?string{
         $originalFilename = pathinfo($imgFile->getClientOrigicnalName(), PATHINFO_FILENAME);
