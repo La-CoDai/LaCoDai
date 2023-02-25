@@ -147,4 +147,14 @@ class CartController extends AbstractController
             'totalAll' => $totalAll
         ]);
     }
+
+    /**
+     * @Route("cart/delete/{procart}",name="delete_cart", requirements={"id"="\d+"})
+     */
+    
+     public function deleteAction(CartRepository $reCart, Cart $c): Response
+     {
+        $reCart->remove($c,true);
+        return $this->redirectToRoute('show_cart', [], Response::HTTP_SEE_OTHER);
+     } 
 }
