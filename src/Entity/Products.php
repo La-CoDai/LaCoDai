@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,22 @@ class Products
      * @ORM\JoinColumn(nullable=false)
      */
     private $brand;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="procart")
+     */
+    private $carts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Orderdetail::class, mappedBy="pid")
+     */
+    private $orderdetails;
+
+    public function __construct()
+    {
+        $this->carts = new ArrayCollection();
+        $this->orderdetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +139,66 @@ class Products
     public function setBrand(?Brands $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->setProcart($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getProcart() === $this) {
+                $cart->setProcart(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orderdetail>
+     */
+    public function getOrderdetails(): Collection
+    {
+        return $this->orderdetails;
+    }
+
+    public function addOrderdetail(Orderdetail $orderdetail): self
+    {
+        if (!$this->orderdetails->contains($orderdetail)) {
+            $this->orderdetails[] = $orderdetail;
+            $orderdetail->setPid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderdetail(Orderdetail $orderdetail): self
+    {
+        if ($this->orderdetails->removeElement($orderdetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderdetail->getPid() === $this) {
+                $orderdetail->setPid(null);
+            }
+        }
 
         return $this;
     }

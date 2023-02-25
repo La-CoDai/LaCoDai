@@ -4,7 +4,10 @@
     <div class="tab-content">
         <div class="tab-pane fade show p-0 active">
             <div class="title">
-                    <span>Male</span>
+                {% for br in bra %}
+                    <span>{{br.bname}}</span>
+                {% endfor %}
+                
             </div>
             <div class="row g-4 my-3 mx-auto">
                 {% for pro in product %}
@@ -22,9 +25,15 @@
                                 <small class="w-50 text-center border-end py-2">
                                     <a class="text-body" href="{{path('detail_product',{'id':pro.id})}}"><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                 </small>
+                                {% if app.user %}
                                 <small class="w-50 text-center py-2">
-                                    <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                    <a class="text-body" href="{{path('add_cart',{'id':pro.id})}}"><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                </small>   
+                                {% else %}
+                                <small class="w-50 text-center py-2">
+                                    <a class="text-body" href="{{path('loginForm')}}"><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
                                 </small>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

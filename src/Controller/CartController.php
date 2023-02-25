@@ -6,11 +6,14 @@ use App\Entity\Cart;
 use App\Entity\Order;
 use App\Entity\Orderdetail;
 use App\Entity\Products;
+use App\Entity\User;
 use App\Repository\BrandsRepository;
 use App\Repository\CartRepository;
+use App\Repository\CartTempRepository;
 use App\Repository\OrderdetailRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductsRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +46,7 @@ class CartController extends AbstractController
             'brand' => $brand
         ]);
     }
-
+    
     /**
      * @Route("/addcart/{id}", name="add_cart")
      */
@@ -83,14 +86,12 @@ class CartController extends AbstractController
         return $this->redirectToRoute('show_cart', [], Response::HTTP_SEE_OTHER);
     }
 
-
     /**
      * @Route("/order", name="show_order")
     */
-    public function checkout(BrandsRepository $reBra, OrderRepository $order, CartRepository $repo, OrderdetailRepository $orderdetail, ProductsRepository $rePro, EntityManagerInterface $em): Response
+    public function checkout(OrderRepository $order, CartRepository $repo, OrderdetailRepository $orderdetail, ProductsRepository $rePro, EntityManagerInterface $em): Response
     {
         //insert  to order
-        $brand = $reBra->findAll();
         $orderForm= new Order();
         //Get id user
         $user = $this->getUser();
@@ -131,14 +132,38 @@ class CartController extends AbstractController
                 
         }
 
-        $ordertemplate1 = $orderdetail->showOrderByUserId($oid);
-        $ordertemplate2 = $order->orderTemplate();
-
         $cartdelete = $repo->findAll();
         foreach ($cartdelete as $cartdel) {
             $em->remove($cartdel);
         }
         $em->flush();
+
+        return $this->redirectToRoute('ordertemplate', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/ordertemplate", name="ordertemplate")
+     */
+    public function ordertemplate(BrandsRepository $reBra, OrderRepository $order, OrderdetailRepository $orderdetail, CartRepository $repo): Response
+    {
+        $user = $this->getUser();
+        $data[]=[
+            'id'=>$user->getId()
+        ];
+        $uid = $data[0]['id'];
+
+        $oid = $order->orderdetail($uid)[0]['id'];
+
+        $product = $repo->findCart($uid);
+
+        $totalAll = 0;
+        foreach ($product as $p) {
+            $totalAll += $p['total'];
+        }
+        
+        $ordertemplate1 = $orderdetail->showOrderByUserId($oid);
+        $ordertemplate2 = $order->orderTemplate();
+        $brand = $reBra->findAll();
 
         return $this->render('pay/order.html.twig', [
             'ordercart' => $ordertemplate1,

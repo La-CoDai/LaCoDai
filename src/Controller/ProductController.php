@@ -2,20 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
+use App\Entity\CartTemp;
 use App\Entity\Products;
+use App\Entity\User;
+use App\Form\DetailType;
 use App\Repository\BrandsRepository;
+use App\Repository\CartRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProductsController extends AbstractController
+class ProductController extends AbstractController
 {
     /**
      * @Route("/product/detail/{id}", name="detail_product")
      */
-    public function showDetailProduct(Products $pro, ProductsRepository $repo, BrandsRepository $bra): Response
+    public function showDetailProduct(Products $pro, ProductsRepository $repo, BrandsRepository $bra, CartRepository $reCart, Request $req): Response
     {
         $brid = $pro->getBrand();
         $brand = $repo->findRelativeProduct($brid);
@@ -27,7 +32,7 @@ class ProductsController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/product/brand/{id}", name="product_brand")
      */
     public function showProductBrand(ProductsRepository $rePro, BrandsRepository $reBra, int $id): Response
@@ -42,7 +47,7 @@ class ProductsController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/product/find", name="product_find")
      */
     public function searchProduct(ProductsRepository $rePro, BrandsRepository $reBra, Request $req): Response
@@ -60,7 +65,7 @@ class ProductsController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/product/saleMale", name="product_saleMale")
      */
     public function showProductSaleMale(ProductsRepository $rePro, BrandsRepository $reBra): Response

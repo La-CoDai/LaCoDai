@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\BrandsRepository;
 use App\Repository\ProductsRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,17 +26,6 @@ class MainController extends AbstractController
         ]);
     }
 
-        /**
-     * @Route("/aboutus", name="aboutusForm")
-     */
-    public function Aboutus(BrandsRepository $bra): Response
-    {
-        $brand = $bra->findAll();
-        return $this->render('main/aboutus.html.twig', [
-            'brand' => $brand
-        ]);
-    }
-
     /**
      * @Route("/contact", name="contactForm")
      */
@@ -42,6 +33,17 @@ class MainController extends AbstractController
     {
         $brand = $bra->findAll();
         return $this->render('main/contact.html.twig', [
+            'brand' => $brand
+        ]);
+    }
+
+    /**
+     * @Route("/aboutus", name="aboutusForm")
+     */
+    public function Aboutus(BrandsRepository $bra): Response
+    {
+        $brand = $bra->findAll();
+        return $this->render('main/aboutus.html.twig', [
             'brand' => $brand
         ]);
     }
@@ -67,7 +69,7 @@ class MainController extends AbstractController
     /**
      * @Route("/profile/update/{id}", name="profileUp")
      */
-    public function ProfileUp(BrandsRepository $reBra, UserRepository $reUser, Request $req, User $u): Response
+    public function ProfileUp(UserRepository $reUser, Request $req, User $u): Response
     {
         $name = $req->query->get('name');
         $address = $req->query->get('address');

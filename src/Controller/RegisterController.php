@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\BrandsRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,26 +24,32 @@ class RegisterController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);   
         $form->handleRequest($request);
+        $error = "";
         if($form->isSubmitted() && $form->isValid()){
-            //encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            $user->setRoles(['ROLE_USER']);
+            try {
+                //encode the plain password
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+                $user->setRoles(['ROLE_USER']);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            //send email (later)
-            //....
+                //send email (later)
+                //....
 
-            return $this->redirectToRoute('loginForm');
+                return $this->redirectToRoute('loginForm');
+            } catch (UniqueConstraintViolationException $th) {
+                $error = "Email has existed";
+            }
         }
 
         return $this->render('register/index.html.twig', [
+            'error' => $error,
             'form' => $form->createView(),
             'brand' => $brand
         ]);
