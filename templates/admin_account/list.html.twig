@@ -14,7 +14,6 @@
                         <th>NAME</th>
                         <th>ADDRESS</th>
                         <th>PHONE</th>
-                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -27,9 +26,6 @@
                             <td>{{ acc.name}}</td>
                             <td>{{ acc.address}}</td>
                             <td>{{ acc.phone}}</td>
-                            <td class="text-center">
-                                <a href="{{path('show_account',{'id':acc.id})}}" class="text-decoration-none"><i class="fa-solid fa-trash"></i></a>
-                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
