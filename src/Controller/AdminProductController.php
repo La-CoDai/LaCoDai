@@ -80,9 +80,8 @@ class AdminProductController extends AbstractController
         return $this->redirectToRoute('show_product', [], Response::HTTP_SEE_OTHER);
     }
 
-    
     public function uploadImage($imgFile, SluggerInterface $slugger): ?string{
-        $originalFilename = pathinfo($imgFile->getClientOrigicnalName(), PATHINFO_FILENAME);
+        $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $slugger->slug($originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
         try {
