@@ -108,6 +108,20 @@ class ProductsRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+    * @return Products[] Returns an array of Products objects
+    */
+   public function findAllSeeBrand(): array
+   {
+       return $this->createQueryBuilder('p')
+           ->select('p.id, p.pname, p.pprice, p.pimg, p.pgender, p.pdes, br.bname')
+           ->innerJoin('p.brand','br')
+           ->orderBy('p.id', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 
 //    /**
 //     * @return Products[] Returns an array of Products objects
