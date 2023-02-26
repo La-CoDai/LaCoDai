@@ -18,7 +18,7 @@
                     {{product.pdes}}
                 </p>
                 <form action="{{path('add_cart',{'id':product.id})}}" class="h5 my-auto d-flex" methods="get">  
-                    <input type="number" class="p-2" placeholder="  Enter quantity" name="quantity" required>
+                    <input type="number" min="1" class="p-2" placeholder="  Enter quantity" name="quantity" required>
                     {% if app.user %}
                     <button type="submit" class="btn btn-danger mx-3">Add to cart</button>
                     {% else %}
