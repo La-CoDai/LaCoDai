@@ -27,24 +27,29 @@ class RegisterController extends AbstractController
         $error = "";
         if($form->isSubmitted() && $form->isValid()){
             try {
-                //encode the plain password
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
-                $user->setRoles(['ROLE_USER']);
+                $pass = $form->get('password')->getData();
+                if (strlen($pass) >= 8) {
+                    //encode the plain password
+                    $user->setPassword(
+                        $userPasswordHasher->hashPassword(
+                            $user,
+                            $form->get('password')->getData()
+                        )
+                    );
+                    $user->setRoles(['ROLE_USER']);
 
-                $entityManager->persist($user);
-                $entityManager->flush();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-                //send email (later)
-                //....
+                    //send email (later)
+                    //....
 
-                return $this->redirectToRoute('loginForm');
+                    return $this->redirectToRoute('loginForm');
+                }else {
+                    $error = "Password must be greater than or equal to 8 characters";
+                }
             } catch (UniqueConstraintViolationException $th) {
-                $error = "Email has existed";
+                $error = "Email already exists";
             }
         }
 
